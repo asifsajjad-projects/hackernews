@@ -2,10 +2,19 @@ const myApp = angular.module("myApp", [
   "ngRoute",
   "ngMaterial",
   "infinite-scroll",
+  "ngCookies"
 ]);
 
-function mainController($scope){
-$scope.cookieData='';
+function mainController($scope, $cookies){
+$scope.cookieData=[{
+    id:5431,
+    name:'Abc'
+},
+{
+    id:2453,
+    name:'Def'
+}];
+$cookies.put("topCookie","abc");
 }
 
 myApp.controller("mainController", mainController);
