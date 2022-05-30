@@ -1,4 +1,13 @@
-<div data-ng-controller="bestStoriesController" class="md-whiteframe-1dp parent-scroll best-cont view" layout-margin="" layout-padding="">
+<div data-ng-if="!myBestNewsArray" layout="column" layout-align="center center">
+  <div data-ng-if="BestStoriesError">
+    <h3>OOPS! Something went wrong.</h3>
+  </div>
+  <div data-ng-if="!BestStoriesError">
+  <md-progress-circular ng-disabled="!vm.activated" class="md-accent md-hue-1" md-diameter="60"></md-progress-circular>
+  <h2>Loading...</h2>
+  </div>
+</div>
+<div data-ng-if="myBestNewsArray" class="md-whiteframe-1dp parent-scroll best-cont view" layout-margin="" layout-padding="">
     <div
     infinite-scroll="loadBestNext()"
     infinite-scroll-distance="1"
@@ -7,7 +16,7 @@
     infinite-scroll-container='".best-cont"'
     >
   <div
-    class="md-whiteframe-4dp"
+    class="md-whiteframe-4dp hover-card"
     layout-margin=""
     layout-padding=""
     data-ng-repeat="newsObj in myBestNewsArray"
@@ -18,7 +27,7 @@
    <a class="default-link" href={{newsObj.url}} > <div>
       <h3>{{newsObj.title}}</h3>
       <p>( {{newsObj.url}} )</p>
-      <div>
+      <div class="word-break">
         Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
         {{newsObj.type}}
       </div>

@@ -1,28 +1,46 @@
-<div data-ng-controller="topController" class="md-whiteframe-1dp parent-scroll top-cont view" layout-margin="" layout-padding="">
-    <div
+<div data-ng-if="!myNewsArray" layout="column" layout-align="center center">
+  <div data-ng-if="topStoriesError">
+    <h3>OOPS! Something went wrong.</h3>
+  </div>
+  <div data-ng-if="!topStoriesError">
+    <md-progress-circular
+      ng-disabled="!vm.activated"
+      class="md-accent md-hue-1"
+      md-diameter="60"
+    ></md-progress-circular>
+    <h2>Loading...</h2>
+  </div>
+</div>
+<div
+  data-ng-if="myNewsArray"
+  class="md-whiteframe-1dp parent-scroll top-cont view"
+  layout-margin=""
+  layout-padding=""
+>
+  <div
     infinite-scroll="loadNext()"
     infinite-scroll-distance="1"
     infinite-scroll-disabled="disableTopScroll"
     infinite-scroll-parent="true"
     infinite-scroll-container='".top-cont"'
-    >
-  <div
-    class="md-whiteframe-4dp"
-    layout-margin=""
-    layout-padding=""
-    data-ng-repeat="newsObj in myNewsArray"
-    layout="column"
-    
-
   >
-   <a class="default-link" href={{newsObj.url}} > <div>
-      <h3>{{newsObj.title}}</h3>
-      <p>( {{newsObj.url}} )</p>
-      <div>
-        Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
-        {{newsObj.type}}
-      </div>
-    </div></a>
+    <div
+      class="md-whiteframe-4dp hover-card"
+      layout-margin=""
+      layout-padding=""
+      data-ng-repeat="newsObj in myNewsArray"
+      layout="column"
+    >
+      <a class="default-link" href="{{newsObj.url}}">
+        <div>
+          <h3>{{newsObj.title}}</h3>
+          <p class="word-break">( {{newsObj.url}} )</p>
+          <div>
+            Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
+            {{newsObj.type}}
+          </div>
+        </div></a
+      >
+    </div>
   </div>
-</div>
 </div>
