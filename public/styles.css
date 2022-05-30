@@ -1,0 +1,9 @@
+.default-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.parent-scroll{
+    height: 100vh;
+    overflow: scroll;
+}

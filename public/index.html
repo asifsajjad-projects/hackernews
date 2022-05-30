@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacker News</title>
+    <script src="../src/libraries/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <script src="../src/libraries/ng-infinite-scroll.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.2.1/angular-material.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-ng-controller="myController" data-ng-cloak>
+    <md-toolbar layout="row">
+      <div layout-padding>
+        <h3>
+          Hacker <br />
+          News
+        </h3>
+      </div>
+      <div layout-padding><h4>Top Stories</h4></div>
+      <div layout-padding><h4>New Stories</h4></div>
+      <div layout-padding><h4>Best Stories</h4></div>
+    </md-toolbar>
+
+    <md-content>
+      <div class="md-whiteframe-1dp parent-scroll" layout-margin="" layout-padding="">
+          <div
+          infinite-scroll="loadNext()"
+          infinite-scroll-distance="1"
+          infinite-scroll-disabled="disableScroll"
+          infinite-scroll-parent="true"
+          infinite-scroll-container='".parent-scroll"'
+          >
+        <div
+          class="md-whiteframe-4dp"
+          layout-margin=""
+          layout-padding=""
+          data-ng-repeat="newsObj in myNewsArray"
+          layout="column"
+          
+
+        >
+         <a class="default-link" href={{newsObj.url}} > <div>
+            <h3>{{newsObj.title}}</h3>
+            <p>( {{newsObj.url}} )</p>
+            <div>
+              Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
+              {{newsObj.type}}
+            </div>
+          </div></a>
+        </div>
+    </div>
+      </div>
+    </md-content>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.2.1/angular-material.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
