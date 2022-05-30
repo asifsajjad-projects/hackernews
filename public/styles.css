@@ -3,7 +3,8 @@
     color: inherit;
 }
 
+
 .parent-scroll{
-    height: 100vh;
+    height: 74vh;
     overflow: scroll;
 }

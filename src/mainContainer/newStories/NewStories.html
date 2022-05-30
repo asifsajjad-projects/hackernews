@@ -1,0 +1,28 @@
+<div data-ng-controller="newStoriesController" class="md-whiteframe-1dp parent-scroll new-cont view" layout-margin="" layout-padding="">
+    <div
+    infinite-scroll="loadNewNext()"
+    infinite-scroll-distance="1"
+    infinite-scroll-disabled="disableNewScroll"
+    infinite-scroll-parent="true"
+    infinite-scroll-container='".new-cont"'
+    >
+  <div
+    class="md-whiteframe-4dp"
+    layout-margin=""
+    layout-padding=""
+    data-ng-repeat="newsObj in myNewNewsArray"
+    layout="column"
+    
+
+  >
+   <a class="default-link" href={{newsObj.url}} > <div>
+      <h3>{{newsObj.title}}</h3>
+      <p>( {{newsObj.url}} )</p>
+      <div>
+        Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
+        {{newsObj.type}}
+      </div>
+    </div></a>
+  </div>
+</div>
+</div>

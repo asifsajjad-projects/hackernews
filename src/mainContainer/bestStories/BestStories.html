@@ -1,0 +1,28 @@
+<div data-ng-controller="bestStoriesController" class="md-whiteframe-1dp parent-scroll best-cont view" layout-margin="" layout-padding="">
+    <div
+    infinite-scroll="loadBestNext()"
+    infinite-scroll-distance="1"
+    infinite-scroll-disabled="disableBestScroll"
+    infinite-scroll-parent="true"
+    infinite-scroll-container='".best-cont"'
+    >
+  <div
+    class="md-whiteframe-4dp"
+    layout-margin=""
+    layout-padding=""
+    data-ng-repeat="newsObj in myBestNewsArray"
+    layout="column"
+    
+
+  >
+   <a class="default-link" href={{newsObj.url}} > <div>
+      <h3>{{newsObj.title}}</h3>
+      <p>( {{newsObj.url}} )</p>
+      <div>
+        Points: {{newsObj.score}} | By: {{newsObj.by}} | Type:
+        {{newsObj.type}}
+      </div>
+    </div></a>
+  </div>
+</div>
+</div>
