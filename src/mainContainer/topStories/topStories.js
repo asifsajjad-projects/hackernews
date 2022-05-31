@@ -52,6 +52,7 @@ function topStoriesController($scope, $http) {
         );
         $scope.myNewsArray = [...$scope.myNewsArray, ...nextTenNewsArray];
         $scope.disableTopScroll = false;
+        $scope.lastIndex += 10;
         $scope.topStoriesError = false;
         $scope.$digest();
       } catch (error) {

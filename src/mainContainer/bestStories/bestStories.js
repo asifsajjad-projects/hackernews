@@ -1,18 +1,36 @@
-function bestStoriesController($scope, $http) {
+function bestStoriesController($scope, $http, $cookies) {
   console.log("best stories called");
+
   async function getNewsDetails(id) {
-    try {
-      const news = await $http
-        .get(
-          `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-        )
-        .then(function (response) {
-          return response.data;
-        });
-      return news;
-    } catch (error) {
-      console.log(error);
-      $scope.bestStoriesError = true;
+    let cookieNews = $cookies.getObject(id.toString());
+    console.log(cookieNews);
+
+    if (cookieNews) {
+      console.log("got from cookie", cookieNews);
+      return cookieNews;
+    } else {
+      try {
+        console.log("Calling API");
+        const news = await $http
+          .get(
+            `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+          )
+          .then(function (response) {
+            return response.data;
+          });
+        const shortenedNews = {
+          title: news.title,
+          score: news.score,
+          type: news.type,
+          url: news.url,
+          by: news.by,
+        };
+        $cookies.putObject(id.toString(), shortenedNews);
+        return shortenedNews;
+      } catch (error) {
+        console.log(error);
+        $scope.bestStoriesError = true;
+      }
     }
   }
 
@@ -58,6 +76,7 @@ function bestStoriesController($scope, $http) {
         ];
         $scope.disableBestScroll = false;
         $scope.bestStoriesError = false;
+        $scope.lastBestIndex += 10;
         $scope.$digest();
         console.log($scope.myBestNewsArray);
       } catch (error) {

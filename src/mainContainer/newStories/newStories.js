@@ -54,6 +54,7 @@ function newStoriesController($scope, $http) {
         );
         $scope.myNewNewsArray = [...$scope.myNewNewsArray, ...nextTenNewsArray];
         $scope.disableNewScroll = false;
+        $scope.lastNewIndex += 10;
         $scope.bestStoriesError = false;
         $scope.$digest();
       } catch (error) {
