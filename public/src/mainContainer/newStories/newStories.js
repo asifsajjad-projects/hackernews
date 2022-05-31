@@ -1,20 +1,6 @@
-function newStoriesController($scope, $http) {
+function newStoriesController($scope, $http, apiCall) {
   console.log("new stories called");
-  async function getNewsDetails(id) {
-    try {
-      const news = await $http
-        .get(
-          `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-        )
-        .then(function (response) {
-          return response.data;
-        });
-      return news;
-    } catch (error) {
-      $scope.bestStoriesError = true;
-      console.log(error);
-    }
-  }
+  
 
   $http
     .get("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")
@@ -26,7 +12,7 @@ function newStoriesController($scope, $http) {
     .then(async function (smallArray) {
       try {
         const firstTenNewsArray = await Promise.all(
-          smallArray.map(getNewsDetails)
+          smallArray.map(apiCall.getNewsDetails)
         );
         $scope.myNewNewsArray = firstTenNewsArray;
         $scope.bestStoriesError = false;
@@ -50,7 +36,7 @@ function newStoriesController($scope, $http) {
       );
       try {
         const nextTenNewsArray = await Promise.all(
-          shortArray.map(getNewsDetails)
+          shortArray.map(apiCall.getNewsDetails)
         );
         $scope.myNewNewsArray = [...$scope.myNewNewsArray, ...nextTenNewsArray];
         $scope.disableNewScroll = false;

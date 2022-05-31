@@ -1,38 +1,7 @@
-function bestStoriesController($scope, $http, $cookies) {
+function bestStoriesController($scope, $http, $sessionStorage,apiCall) {
   console.log("best stories called");
 
-  async function getNewsDetails(id) {
-    let cookieNews = $cookies.getObject(id.toString());
-    console.log(cookieNews);
-
-    if (cookieNews) {
-      console.log("got from cookie", cookieNews);
-      return cookieNews;
-    } else {
-      try {
-        console.log("Calling API");
-        const news = await $http
-          .get(
-            `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-          )
-          .then(function (response) {
-            return response.data;
-          });
-        const shortenedNews = {
-          title: news.title,
-          score: news.score,
-          type: news.type,
-          url: news.url,
-          by: news.by,
-        };
-        $cookies.putObject(id.toString(), shortenedNews);
-        return shortenedNews;
-      } catch (error) {
-        console.log(error);
-        $scope.bestStoriesError = true;
-      }
-    }
-  }
+  
 
   $http
     .get("https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty")
@@ -44,7 +13,7 @@ function bestStoriesController($scope, $http, $cookies) {
     .then(async function (smallArray) {
       try {
         const firstTenNewsArray = await Promise.all(
-          smallArray.map(getNewsDetails)
+          smallArray.map(apiCall.getNewsDetails)
         );
         $scope.myBestNewsArray = firstTenNewsArray;
         $scope.bestStoriesError = false;
@@ -68,7 +37,7 @@ function bestStoriesController($scope, $http, $cookies) {
       );
       try {
         const nextTenNewsArray = await Promise.all(
-          shortArray.map(getNewsDetails)
+          shortArray.map(apiCall.getNewsDetails)
         );
         $scope.myBestNewsArray = [
           ...$scope.myBestNewsArray,
